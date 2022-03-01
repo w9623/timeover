@@ -15,16 +15,18 @@
             android:layout_height="match_parent">
             <LinearLayout
                 android:layout_gravity="center"
-                android:padding="10dp"
+                android:padding="@dimen/dp_10"
                 android:background="@drawable/btn1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"/>
+                    android:src="@mipmap/ic_add"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="@dimen/dp_10"
+                    android:layout_height="@dimen/dp_10"/>
                 <TextView
                     android:id="@+id/tv_set_time"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="@dimen/dp_10"
                     android:layout_gravity="center_vertical"
                     android:text="自定义天数"
                     android:textColor="@color/black"
@@ -35,31 +37,33 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
-                android:paddingLeft="20dp"
+                android:paddingLeft="@dimen/dp_20"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
             <RelativeLayout
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="@dimen/dp_20"
                 android:background="@color/white"
-                android:paddingRight="20dp"
-                android:paddingLeft="20dp"
+                android:paddingRight="@dimen/dp_20"
+                android:paddingLeft="@dimen/dp_20"
                 android:layout_width="match_parent"
-                android:layout_height="35dp">
+                android:layout_height="@dimen/dp_35">
                 <TextView
                     android:layout_centerVertical="true"
                     android:textColor="@color/black"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/sp_15"
                     android:text="不提醒"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
                 <ImageView
                     android:id="@+id/iv_choice"
-                    android:layout_centerVertical="true"
+                    android:visibility="gone"
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20"
                     android:layout_alignParentRight="true"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"/>
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/ic_hook" />
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>

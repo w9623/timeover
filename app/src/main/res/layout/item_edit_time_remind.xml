@@ -5,21 +5,22 @@
     android:layout_height="match_parent">
     <RelativeLayout
         android:background="@color/white"
-        android:paddingRight="20dp"
+        android:paddingRight="@dimen/dp_20"
         android:layout_width="match_parent"
-        android:layout_height="35dp">
+        android:layout_height="@dimen/dp_35">
         <TextView
             android:layout_centerVertical="true"
             android:textColor="@color/black"
-            android:textSize="15sp"
+            android:textSize="@dimen/sp_15"
             android:text="不提醒"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <ImageView
             android:id="@+id/iv_choice"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:src="@mipmap/ic_hook"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true" />
     </RelativeLayout>
@@ -27,5 +28,5 @@
     <View
         android:background="@color/color_DCDCDC"
         android:layout_width="wrap_content"
-        android:layout_height="1dp"/>
+        android:layout_height="@dimen/dp_1"/>
 </LinearLayout>
