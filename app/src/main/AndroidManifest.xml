@@ -17,15 +17,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TimeOverdue">
-        <activity android:name=".ui.Setting"></activity>
-        <activity android:name=".MainActivity" />
-        <activity android:name=".ui.LoginOrRegister">
+        <activity android:name=".ui.activity.LoginOrRegisterActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.activity.SettingActivity"></activity>
+        <activity android:name=".ui.activity.MainActivity" />
+        <activity android:name=".ui.activity.BackupsActivity"/>
+        <activity android:name=".ui.activity.FeedBackActivity"/>
 
         <provider
             android:name="cn.bmob.v3.util.BmobContentProvider"

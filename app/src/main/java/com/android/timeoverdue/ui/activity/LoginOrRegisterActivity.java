@@ -1,13 +1,9 @@
-package com.android.timeoverdue.ui;
+package com.android.timeoverdue.ui.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 
-import com.android.timeoverdue.MainActivity;
 import com.android.timeoverdue.R;
 import com.android.timeoverdue.base.BaseActivity;
 import com.android.timeoverdue.bean.UserBean;
@@ -18,14 +14,18 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 
-public class LoginOrRegister extends BaseActivity<ActivityLoginOrRegisterBinding> {
+public class LoginOrRegisterActivity extends BaseActivity<ActivityLoginOrRegisterBinding> {
 
     private String userName,password;
 
     @Override
     protected void initView() {
-        //默认进入该页面为登录页面
-        changePage(true);
+        if (BmobUser.isLogin()){
+            jumpToActivity(MainActivity.class);
+        }else {
+            //默认进入该页面为登录页面
+            changePage(true);
+        }
     }
 
     @Override
@@ -158,6 +158,7 @@ public class LoginOrRegister extends BaseActivity<ActivityLoginOrRegisterBinding
                     UserBean user = BmobUser.getCurrentUser(UserBean.class);
                     showToast("登录成功！");
                     jumpToActivity(MainActivity.class);
+                    finish();
                 } else {
                     showToast("登录失败！");
                 }

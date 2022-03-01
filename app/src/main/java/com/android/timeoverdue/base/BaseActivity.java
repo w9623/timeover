@@ -53,9 +53,10 @@ public abstract class BaseActivity<T extends ViewBinding> extends AppCompatActiv
         if (isSetStatusBar) {
             steepStatusBar(isSetStatusBar);
         }
-        initView();
         //设置数据
         initData();
+        //初始化布局
+        initView();
         //点击事件响应
         onClick();
     }
