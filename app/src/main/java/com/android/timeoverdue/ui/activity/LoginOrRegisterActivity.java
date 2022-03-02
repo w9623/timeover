@@ -22,6 +22,7 @@ public class LoginOrRegisterActivity extends BaseActivity<ActivityLoginOrRegiste
     protected void initView() {
         if (BmobUser.isLogin()){
             jumpToActivity(MainActivity.class);
+            finish();
         }else {
             //默认进入该页面为登录页面
             changePage(true);

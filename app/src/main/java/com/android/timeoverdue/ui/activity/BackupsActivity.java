@@ -43,6 +43,7 @@ public class BackupsActivity extends BaseActivity<ActivityBackupsBinding> {
         });
     }
 
+    //弹窗提示当前要退出账号
     private void showDialog(){
         AlertDialog builder = new AlertDialog.Builder(this).create();
         View view= LayoutInflater.from(this).inflate(R.layout.dialog_exit,null);
@@ -56,13 +57,6 @@ public class BackupsActivity extends BaseActivity<ActivityBackupsBinding> {
             BmobUser.logOut();
             finish();
         });
-//        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-//            //设定PositiveButton
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//
-//            }
-//        });
         builder.show();
     }
 }

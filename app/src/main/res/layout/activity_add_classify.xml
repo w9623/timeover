@@ -4,7 +4,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/activity_top_title"/>
+    <include
+        android:id="@+id/include_top"
+        layout="@layout/activity_top_title"/>
 
     <LinearLayout
         android:paddingLeft="@dimen/dp_20"
@@ -24,6 +26,8 @@
             android:id="@+id/et_classify"
             android:text=""
             android:textSize="@dimen/sp_15"
+            android:singleLine="true"
+            android:maxLines="1"
             android:hint="输入分类名称"
             android:layout_marginLeft="@dimen/dp_20"
             android:background="@null"
@@ -41,6 +45,7 @@
 
     <ImageView
         android:id="@+id/iv_del"
+        android:src="@mipmap/ic_del"
         android:layout_marginTop="@dimen/dp_30"
         android:layout_gravity="center_horizontal"
         android:layout_width="@dimen/dp_25"

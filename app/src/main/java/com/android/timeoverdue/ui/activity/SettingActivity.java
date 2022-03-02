@@ -40,6 +40,10 @@ public class SettingActivity extends BaseActivity<ActivitySettingBinding> {
                 jumpToActivity(LoginOrRegisterActivity.class);
             }
         });
+        //自定义分类按钮
+        viewBinding.llClassify.setOnClickListener(v->{
+            jumpToActivity(ClassifyActivity.class);
+        });
     }
 
     @Override
@@ -48,6 +52,7 @@ public class SettingActivity extends BaseActivity<ActivitySettingBinding> {
         judgeUser();
     }
 
+    //判断用户当前是否登录
     private void judgeUser(){
         if (BmobUser.isLogin()){
             viewBinding.tvSynchronization.setText("已开启同步");

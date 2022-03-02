@@ -28,6 +28,8 @@
         <activity android:name=".ui.activity.MainActivity" />
         <activity android:name=".ui.activity.BackupsActivity"/>
         <activity android:name=".ui.activity.FeedBackActivity"/>
+        <activity android:name=".ui.activity.ClassifyActivity"/>
+        <activity android:name=".ui.activity.AddClassifyActivity"/>
 
         <provider
             android:name="cn.bmob.v3.util.BmobContentProvider"

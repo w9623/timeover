@@ -7,6 +7,7 @@
         <entry key="..\:/AndroidProject/TimeOverdue/app/src/main/res/drawable/btn2.xml" value="0.238" />
         <entry key="..\:/AndroidProject/TimeOverdue/app/src/main/res/drawable/btn3.xml" value="0.238" />
         <entry key="..\:/AndroidProject/TimeOverdue/app/src/main/res/drawable/btn4.xml" value="0.238" />
+        <entry key="..\:/AndroidProject/TimeOverdue/app/src/main/res/layout/activity_add_classify.xml" value="0.3453125" />
         <entry key="..\:/AndroidProject/TimeOverdue/app/src/main/res/layout/activity_add_company.xml" value="0.33" />
         <entry key="..\:/AndroidProject/TimeOverdue/app/src/main/res/layout/activity_add_goods.xml" value="0.25" />
         <entry key="..\:/AndroidProject/TimeOverdue/app/src/main/res/layout/activity_backups.xml" value="0.33" />
@@ -20,6 +21,7 @@
         <entry key="..\:/AndroidProject/TimeOverdue/app/src/main/res/layout/activity_setting.xml" value="0.33" />
         <entry key="..\:/AndroidProject/TimeOverdue/app/src/main/res/layout/activity_time_remind.xml" value="0.3453125" />
         <entry key="..\:/AndroidProject/TimeOverdue/app/src/main/res/layout/activity_top_title.xml" value="0.3453125" />
+        <entry key="..\:/AndroidProject/TimeOverdue/app/src/main/res/layout/dialog_del.xml" value="0.3453125" />
         <entry key="..\:/AndroidProject/TimeOverdue/app/src/main/res/layout/dialog_exit.xml" value="0.3453125" />
         <entry key="..\:/AndroidProject/TimeOverdue/app/src/main/res/layout/item_classify.xml" value="0.3453125" />
         <entry key="..\:/AndroidProject/TimeOverdue/app/src/main/res/layout/item_company.xml" value="0.3453125" />
