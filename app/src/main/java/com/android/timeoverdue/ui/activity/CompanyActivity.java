@@ -12,38 +12,40 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.android.timeoverdue.R;
 import com.android.timeoverdue.base.BaseActivity;
 import com.android.timeoverdue.bean.BmobClassify;
-import com.android.timeoverdue.databinding.ActivityClassifyBinding;
+import com.android.timeoverdue.bean.BmobCompany;
+import com.android.timeoverdue.databinding.ActivityCompanyBinding;
 import com.android.timeoverdue.ui.adapter.ClassifyAdapter;
+import com.android.timeoverdue.ui.adapter.CompanyAdapter;
 
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.UpdateListener;
 
-public class ClassifyActivity extends BaseActivity<ActivityClassifyBinding> {
+public class CompanyActivity extends BaseActivity<ActivityCompanyBinding> {
 
-    private List<BmobClassify> list;
-    private ClassifyAdapter classifyAdapter;
+    private List<BmobCompany> list;
+    private CompanyAdapter companyAdapter;
+
     private ClassifyAdapter.OnItemClickListener onItemClickListener = new ClassifyAdapter.OnItemClickListener() {
         @Override
         public void onClick(int position) {
             if (list.get(position).getSystem()){
-                showToast("系统分类不支持编辑！");
+                showToast("系统单位不支持编辑！");
             }else {
-                Intent intent = new Intent(ClassifyActivity.this,AddClassifyActivity.class);
+                Intent intent = new Intent(CompanyActivity.this,AddCompanyActivity.class);
                 intent.putExtra(TAG,"update");
-                intent.putExtra("classifyName",list.get(position).getName());
+                intent.putExtra("companyName",list.get(position).getName());
                 intent.putExtra("mObjectId",list.get(position).getObjectId());
                 startActivity(intent);
             }
 
         }
     };
-    //item的删除按钮点击事件
-    private ClassifyAdapter.DelClickListener delClickListener = new ClassifyAdapter.DelClickListener() {
+
+    private CompanyAdapter.DelClickListener delClickListener = new CompanyAdapter.DelClickListener() {
         @Override
         public void onClick(int position) {
             showDelDialog(position);
@@ -52,55 +54,55 @@ public class ClassifyActivity extends BaseActivity<ActivityClassifyBinding> {
 
     @Override
     protected void initData() {
-        getClassifyList();
+        getCompanyList();
     }
 
     @Override
     protected void initView() {
-        viewBinding.includeTop.tvTitle.setText("自定义分类");
+        viewBinding.includeTop.tvTitle.setText("自定义单位");
         viewBinding.includeTop.tvSave.setVisibility(View.GONE);
         viewBinding.includeTop.ivMore.setVisibility(View.VISIBLE);
         viewBinding.includeTop.ivMore.setImageDrawable(getResources().getDrawable(R.mipmap.ic_add));
     }
 
+    @Override
+    protected void onClick() {
+        //返回按钮点击事件
+        viewBinding.includeTop.ivBack.setOnClickListener(v->{
+            finish();
+        });
+        //添加按钮点击事件
+        viewBinding.includeTop.ivMore.setOnClickListener(v->{
+            Intent intent = new Intent(this,AddCompanyActivity.class);
+            intent.putExtra(TAG,"add");
+            startActivity(intent);
+        });
+    }
+
     //查询分类列表
-    private void getClassifyList(){
-        BmobQuery<BmobClassify> query = new BmobQuery<BmobClassify>();
+    private void getCompanyList(){
+        BmobQuery<BmobCompany> query = new BmobQuery<BmobCompany>();
         query.order("createAt");
-        query.findObjects(new FindListener<BmobClassify>() {
+        query.findObjects(new FindListener<BmobCompany>() {
             @Override
-            public void done(List<BmobClassify> data, BmobException e) {
+            public void done(List<BmobCompany> data, BmobException e) {
                 if (e == null){
                     list = data;
-                    if (classifyAdapter == null){
-                        classifyAdapter = new ClassifyAdapter(mContext,data);
+                    if (companyAdapter == null){
+                        companyAdapter = new CompanyAdapter(mContext,data);
                         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
-                        classifyAdapter.setOnItemClickListener(onItemClickListener);
-                        classifyAdapter.setDelClickListener(delClickListener);
+                        companyAdapter.setOnItemClickListener(onItemClickListener);
+                        companyAdapter.setDelClickListener(delClickListener);
                         viewBinding.recyclerView.setLayoutManager(linearLayoutManager);
-                        viewBinding.recyclerView.setAdapter(classifyAdapter);
+                        viewBinding.recyclerView.setAdapter(companyAdapter);
                     }else{
-                        classifyAdapter.setData(list);
+                        companyAdapter.setData(list);
                     }
                 }else {
                     Log.e(TAG,e.toString());
                 }
 
             }
-        });
-    }
-
-    @Override
-    protected void onClick() {
-        //添加按钮点击事件
-        viewBinding.includeTop.ivMore.setOnClickListener(v->{
-            Intent intent = new Intent(this,AddClassifyActivity.class);
-            intent.putExtra(TAG,"add");
-            startActivity(intent);
-        });
-        //返回按钮点击事件
-        viewBinding.includeTop.ivBack.setOnClickListener(v->{
-            finish();
         });
     }
 
@@ -127,13 +129,13 @@ public class ClassifyActivity extends BaseActivity<ActivityClassifyBinding> {
      * 删除一条数据
      */
     private void delete(String mObjectId,int position) {
-        BmobClassify bmobClassify = new BmobClassify();
-        bmobClassify.delete(mObjectId, new UpdateListener() {
+        BmobCompany bmobCompany = new BmobCompany();
+        bmobCompany.delete(mObjectId, new UpdateListener() {
             @Override
             public void done(BmobException e) {
                 if (e == null){
                     showToast("删除成功！");
-                    classifyAdapter.removePosition(position);
+                    companyAdapter.removePosition(position);
                 }else {
                     Log.e(TAG,e.toString());
                 }
@@ -144,6 +146,6 @@ public class ClassifyActivity extends BaseActivity<ActivityClassifyBinding> {
     @Override
     protected void onResume() {
         super.onResume();
-        getClassifyList();
+        getCompanyList();
     }
 }

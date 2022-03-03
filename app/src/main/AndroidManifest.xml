@@ -30,6 +30,8 @@
         <activity android:name=".ui.activity.FeedBackActivity"/>
         <activity android:name=".ui.activity.ClassifyActivity"/>
         <activity android:name=".ui.activity.AddClassifyActivity"/>
+        <activity android:name=".ui.activity.CompanyActivity"/>
+        <activity android:name=".ui.activity.AddCompanyActivity"/>
 
         <provider
             android:name="cn.bmob.v3.util.BmobContentProvider"

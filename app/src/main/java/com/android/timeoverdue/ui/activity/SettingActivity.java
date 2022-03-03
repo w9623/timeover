@@ -44,6 +44,9 @@ public class SettingActivity extends BaseActivity<ActivitySettingBinding> {
         viewBinding.llClassify.setOnClickListener(v->{
             jumpToActivity(ClassifyActivity.class);
         });
+        viewBinding.llCompany.setOnClickListener(v->{
+            jumpToActivity(CompanyActivity.class);
+        });
     }
 
     @Override

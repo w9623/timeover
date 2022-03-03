@@ -11,7 +11,8 @@ import android.widget.TextView;
 import com.android.timeoverdue.R;
 import com.android.timeoverdue.base.BaseActivity;
 import com.android.timeoverdue.bean.BmobClassify;
-import com.android.timeoverdue.databinding.ActivityAddClassifyBinding;
+import com.android.timeoverdue.bean.BmobCompany;
+import com.android.timeoverdue.databinding.ActivityAddCompanyBinding;
 import com.android.timeoverdue.utils.StringUtil;
 
 import java.util.List;
@@ -22,18 +23,18 @@ import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 
-public class AddClassifyActivity extends BaseActivity<ActivityAddClassifyBinding> {
+public class AddCompanyActivity extends BaseActivity<ActivityAddCompanyBinding> {
 
-    private String classifyName;
+    private String companyName;
     private String str;//用于区分是新增页面还是编辑页面
-    private String mObjectId,name;//name:用于获取从上一个页面得到的名称
+    private String name,mObjectId;//name:用于获取从上一个页面得到的名称
 
     @Override
     protected void initData() {
-        str = getIntent().getStringExtra("ClassifyActivity");
+        str = getIntent().getStringExtra("CompanyActivity");
+        name = getIntent().getStringExtra("companyName");
         mObjectId = getIntent().getStringExtra("mObjectId");
-        name = getIntent().getStringExtra("classifyName");
-        viewBinding.etClassify.addTextChangedListener(new TextWatcher() {
+        viewBinding.etCompany.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -46,8 +47,8 @@ public class AddClassifyActivity extends BaseActivity<ActivityAddClassifyBinding
 
             @Override
             public void afterTextChanged(Editable s) {
-                classifyName = s.toString();
-                changeSave(StringUtil.isEmpty(classifyName));
+                companyName = s.toString();
+                changeSave(StringUtil.isEmpty(companyName));
             }
         });
     }
@@ -55,13 +56,13 @@ public class AddClassifyActivity extends BaseActivity<ActivityAddClassifyBinding
     @Override
     protected void initView() {
         if (str.equals("add")) {
-            viewBinding.includeTop.tvTitle.setText("新建分类");
+            viewBinding.includeTop.tvTitle.setText("新建单位");
             viewBinding.ivDel.setVisibility(View.GONE);
             changeSave(true);
         }else {
-            viewBinding.includeTop.tvTitle.setText("编辑分类");
+            viewBinding.includeTop.tvTitle.setText("编辑单位");
             viewBinding.ivDel.setVisibility(View.VISIBLE);
-            viewBinding.etClassify.setText(name);
+            viewBinding.etCompany.setText(name);
         }
         viewBinding.includeTop.ivMore.setVisibility(View.GONE);
         viewBinding.includeTop.tvSave.setVisibility(View.VISIBLE);
@@ -70,13 +71,13 @@ public class AddClassifyActivity extends BaseActivity<ActivityAddClassifyBinding
 
     @Override
     protected void onClick() {
-        //保存按钮点击事件
-        viewBinding.includeTop.tvSave.setOnClickListener(v->{
-            equal();
-        });
         //返回按钮点击事件
         viewBinding.includeTop.ivBack.setOnClickListener(v->{
             finish();
+        });
+        //保存按钮点击事件
+        viewBinding.includeTop.tvSave.setOnClickListener(v->{
+            equal();
         });
         //删除按钮点击事件
         viewBinding.ivDel.setOnClickListener(v->{
@@ -97,13 +98,41 @@ public class AddClassifyActivity extends BaseActivity<ActivityAddClassifyBinding
     }
 
     /**
+     * 查询数据库中是否已存在输入的分类
+     */
+    private void equal() {
+        BmobQuery<BmobCompany> companyBmobQuery = new BmobQuery<>();
+        companyBmobQuery.addWhereEqualTo("name", companyName);
+        companyBmobQuery.findObjects(new FindListener<BmobCompany>() {
+            @Override
+            public void done(List<BmobCompany> object, BmobException e) {
+                if (e == null) {
+                    Log.e(TAG, String.valueOf(object.size()));
+                    if (object.size() == 0){
+                        if (str.equals("add")) {
+                            save();
+                        }else {
+                            update();
+                        }
+
+                    }else {
+                        showToast("单位名称已存在！");
+                    }
+                } else {
+                    Log.e(TAG, e.toString());
+                }
+            }
+        });
+    }
+
+    /**
      * 新增一个分类
      */
     private void save() {
-        BmobClassify bmobClassify = new BmobClassify();
-        bmobClassify.setName(classifyName);
-        bmobClassify.setSystem(false);
-        bmobClassify.save(new SaveListener<String>() {
+        BmobCompany bmobCompany = new BmobCompany();
+        bmobCompany.setName(companyName);
+        bmobCompany.setSystem(false);
+        bmobCompany.save(new SaveListener<String>() {
             @Override
             public void done(String s, BmobException e) {
                 if (e == null){
@@ -117,40 +146,12 @@ public class AddClassifyActivity extends BaseActivity<ActivityAddClassifyBinding
     }
 
     /**
-     * 查询数据库中是否已存在输入的分类
-     */
-    private void equal() {
-        BmobQuery<BmobClassify> classifyBmobQuery = new BmobQuery<>();
-        classifyBmobQuery.addWhereEqualTo("name", classifyName);
-        classifyBmobQuery.findObjects(new FindListener<BmobClassify>() {
-            @Override
-            public void done(List<BmobClassify> object, BmobException e) {
-                if (e == null) {
-                    Log.e(TAG, String.valueOf(object.size()));
-                    if (object.size() == 0){
-                        if (str.equals("add")) {
-                            save();
-                        }else {
-                            update();
-                        }
-
-                    }else {
-                        showToast("分类名称已存在！");
-                    }
-                } else {
-                    Log.e(TAG, e.toString());
-                }
-            }
-        });
-    }
-
-    /**
      * 更新一条数据
      */
     private void update() {
-        BmobClassify bmobClassify = new BmobClassify();
-        bmobClassify.setName(classifyName);
-        bmobClassify.update(mObjectId, new UpdateListener() {
+        BmobCompany bmobCompany = new BmobCompany();
+        bmobCompany.setName(companyName);
+        bmobCompany.update(mObjectId, new UpdateListener() {
             @Override
             public void done(BmobException e) {
                 if (e == null) {
@@ -187,8 +188,8 @@ public class AddClassifyActivity extends BaseActivity<ActivityAddClassifyBinding
      * 删除一条数据
      */
     private void delete(String mObjectId) {
-        BmobClassify bmobClassify = new BmobClassify();
-        bmobClassify.delete(mObjectId, new UpdateListener() {
+        BmobCompany bmobCompany = new BmobCompany();
+        bmobCompany.delete(mObjectId, new UpdateListener() {
             @Override
             public void done(BmobException e) {
                 if (e == null){
@@ -200,4 +201,5 @@ public class AddClassifyActivity extends BaseActivity<ActivityAddClassifyBinding
             }
         });
     }
+
 }
