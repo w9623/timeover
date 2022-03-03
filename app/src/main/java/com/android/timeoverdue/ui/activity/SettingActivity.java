@@ -2,6 +2,10 @@ package com.android.timeoverdue.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
@@ -9,6 +13,8 @@ import com.android.timeoverdue.R;
 import com.android.timeoverdue.base.BaseActivity;
 import com.android.timeoverdue.databinding.ActivitySettingBinding;
 import com.android.timeoverdue.utils.ActivityUtil;
+
+import java.util.List;
 
 import cn.bmob.v3.BmobUser;
 
@@ -48,6 +54,17 @@ public class SettingActivity extends BaseActivity<ActivitySettingBinding> {
         viewBinding.llCompany.setOnClickListener(v->{
             jumpToActivity(CompanyActivity.class);
         });
+        //评价app按钮
+        viewBinding.llEvaluate.setOnClickListener(v->{
+            if (hasAnyMarketInstalled(mContext)) {
+                Uri uri = Uri.parse("market://details?id="+ mContext.getPackageName());
+                Intent intent =new Intent(Intent.ACTION_VIEW,uri);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }else {
+                showToast("本设备没有应用市场！");
+            }
+        });
     }
 
     @Override
@@ -63,5 +80,13 @@ public class SettingActivity extends BaseActivity<ActivitySettingBinding> {
         }else {
             viewBinding.tvSynchronization.setText("未开启同步");
         }
+    }
+
+    public static boolean hasAnyMarketInstalled(Context context) {
+        Intent intent = new Intent();
+        intent.setData(Uri.parse("market://details?id=android.browser"));
+        List list = context.getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+        return 0!= list.size();
+
     }
 }
