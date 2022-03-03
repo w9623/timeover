@@ -44,6 +44,7 @@ public class SettingActivity extends BaseActivity<ActivitySettingBinding> {
         viewBinding.llClassify.setOnClickListener(v->{
             jumpToActivity(ClassifyActivity.class);
         });
+        //自定义单位按钮
         viewBinding.llCompany.setOnClickListener(v->{
             jumpToActivity(CompanyActivity.class);
         });
