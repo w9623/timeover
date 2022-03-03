@@ -32,6 +32,7 @@
         <activity android:name=".ui.activity.AddClassifyActivity"/>
         <activity android:name=".ui.activity.CompanyActivity"/>
         <activity android:name=".ui.activity.AddCompanyActivity"/>
+        <activity android:name=".ui.activity.CommonProblemActivity"/>
 
         <provider
             android:name="cn.bmob.v3.util.BmobContentProvider"

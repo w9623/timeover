@@ -12,6 +12,7 @@ import android.view.View;
 import com.android.timeoverdue.R;
 import com.android.timeoverdue.base.BaseActivity;
 import com.android.timeoverdue.databinding.ActivitySettingBinding;
+import com.android.timeoverdue.utils.APKVersionInfoUtils;
 import com.android.timeoverdue.utils.ActivityUtil;
 
 import java.util.List;
@@ -25,6 +26,7 @@ public class SettingActivity extends BaseActivity<ActivitySettingBinding> {
         viewBinding.includeTop.tvSave.setVisibility(View.GONE);
         viewBinding.includeTop.ivMore.setVisibility(View.GONE);
         viewBinding.includeTop.tvTitle.setText("设置");
+        viewBinding.tvVersionNumber.setText("版本号 "+ APKVersionInfoUtils.getVersionCode(mContext) +"."+APKVersionInfoUtils.getVersionName(mContext));
         judgeUser();
     }
 
@@ -64,6 +66,17 @@ public class SettingActivity extends BaseActivity<ActivitySettingBinding> {
             }else {
                 showToast("本设备没有应用市场！");
             }
+        });
+        //分享按钮
+        viewBinding.llShare.setOnClickListener(v->{
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_TEXT,"我发现了一个很实用的软件，保质期提醒");
+            startActivity(Intent.createChooser(intent,getTitle()));
+        });
+        //常见问题
+        viewBinding.llCommonProblem.setOnClickListener(v->{
+            jumpToActivity(CommonProblemActivity.class);
         });
     }
 
