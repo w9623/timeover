@@ -91,9 +91,9 @@ public class CompanyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         void onClick(int position);
     }
 
-    private ClassifyAdapter.OnItemClickListener listener = null;
+    private OnItemClickListener listener = null;
 
-    public void setOnItemClickListener(ClassifyAdapter.OnItemClickListener onItemClickListener) {
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.listener = onItemClickListener;
     }
 

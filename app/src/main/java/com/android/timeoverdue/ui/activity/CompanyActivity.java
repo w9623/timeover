@@ -29,7 +29,7 @@ public class CompanyActivity extends BaseActivity<ActivityCompanyBinding> {
     private List<BmobCompany> list;
     private CompanyAdapter companyAdapter;
 
-    private ClassifyAdapter.OnItemClickListener onItemClickListener = new ClassifyAdapter.OnItemClickListener() {
+    private CompanyAdapter.OnItemClickListener onItemClickListener = new CompanyAdapter.OnItemClickListener() {
         @Override
         public void onClick(int position) {
             if (list.get(position).getSystem()){

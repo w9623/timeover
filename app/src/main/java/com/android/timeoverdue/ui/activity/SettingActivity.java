@@ -1,19 +1,14 @@
 package com.android.timeoverdue.ui.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Bundle;
 import android.view.View;
 
-import com.android.timeoverdue.R;
 import com.android.timeoverdue.base.BaseActivity;
 import com.android.timeoverdue.databinding.ActivitySettingBinding;
 import com.android.timeoverdue.utils.APKVersionInfoUtils;
-import com.android.timeoverdue.utils.ActivityUtil;
 
 import java.util.List;
 
@@ -51,6 +46,10 @@ public class SettingActivity extends BaseActivity<ActivitySettingBinding> {
         //自定义分类按钮
         viewBinding.llClassify.setOnClickListener(v->{
             jumpToActivity(ClassifyActivity.class);
+        });
+        //自定义过期提醒
+        viewBinding.llReinderDays.setOnClickListener(v->{
+            jumpToActivity(TimeReinderActivity.class);
         });
         //自定义单位按钮
         viewBinding.llCompany.setOnClickListener(v->{
