@@ -2,7 +2,7 @@ package com.android.timeoverdue.bean;
 
 import cn.bmob.v3.BmobObject;
 
-public class BmobReinderDays extends BmobObject {
+public class BmobReminderDays extends BmobObject {
 
     /**
      * 提醒时间

@@ -5,26 +5,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.timeoverdue.R;
-import com.android.timeoverdue.bean.BmobClassify;
-import com.android.timeoverdue.bean.BmobTimeReinder;
+import com.android.timeoverdue.bean.BmobTimeReminder;
 
 import java.util.List;
-
-import cn.bmob.v3.BmobQuery;
 
 public class TimeReinderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context mContext;
-    private List<BmobTimeReinder> mDatas;
+    private List<BmobTimeReminder> mDatas;
 
-    public TimeReinderAdapter(Context context, List<BmobTimeReinder> datas){
+    public TimeReinderAdapter(Context context, List<BmobTimeReminder> datas){
         this.mContext = context;
         this.mDatas = datas;
     }
@@ -35,7 +31,7 @@ public class TimeReinderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         notifyItemChanged(position,mDatas.size());
     }
 
-    public void setData(List<BmobTimeReinder> list){
+    public void setData(List<BmobTimeReminder> list){
         mDatas.clear();
         this.mDatas = list;
         notifyDataSetChanged();
@@ -44,7 +40,7 @@ public class TimeReinderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(mContext).inflate(R.layout.item_time_remind, parent,false);
+        View itemView = LayoutInflater.from(mContext).inflate(R.layout.item_time_reminder, parent,false);
         return new TimeReinderHolder(itemView);
     }
 
@@ -52,9 +48,10 @@ public class TimeReinderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         TimeReinderHolder timeReinderHolder = (TimeReinderHolder) holder;
         timeReinderHolder.tvClassify.setText(mDatas.get(position).getClassifyName());
-        timeReinderHolder.tvTimeRemind.setText(mDatas.get(position).getReinderDays());
-        if (mDatas.get(position).getReinderDays().equals("W2IJKKKU")){
-
+        if (mDatas.get(position).getReminderDays().equals("W2IJKKKU")){
+            timeReinderHolder.tvTimeRemind.setText("未设置，将使用默认提醒天数");
+        }else {
+            timeReinderHolder.tvTimeRemind.setText(mDatas.get(position).getReminderDays());
         }
         timeReinderHolder.btnSet.setOnClickListener(v->{
             if (listener != null){
@@ -91,8 +88,5 @@ public class TimeReinderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         this.listener = onItemClickListener;
     }
 
-    private void getReinderTime(String id){
-        BmobQuery<BmobTimeReinder> query = new BmobQuery<BmobTimeReinder>();
-//        query.addWhereEqualTo("")
-    }
+
 }

@@ -2,7 +2,7 @@ package com.android.timeoverdue.bean;
 
 import cn.bmob.v3.BmobObject;
 
-public class BmobTimeReinder extends BmobObject {
+public class BmobTimeReminder extends BmobObject {
 
     /**
      * 分类名称
@@ -12,7 +12,7 @@ public class BmobTimeReinder extends BmobObject {
     /**
      * 提醒天数
      */
-    private String reinderDays;
+    private String reminderDays;
 
     public String getClassifyName() {
         return classifyName;
@@ -22,11 +22,11 @@ public class BmobTimeReinder extends BmobObject {
         this.classifyName = classifyName;
     }
 
-    public String getReinderDays() {
-        return reinderDays;
+    public String getReminderDays() {
+        return reminderDays;
     }
 
-    public void setReinderDays(String reinderDays) {
-        this.reinderDays = reinderDays;
+    public void setReminderDays(String reminderDays) {
+        this.reminderDays = reminderDays;
     }
 }

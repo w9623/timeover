@@ -49,7 +49,7 @@ public class SettingActivity extends BaseActivity<ActivitySettingBinding> {
         });
         //自定义过期提醒
         viewBinding.llReinderDays.setOnClickListener(v->{
-            jumpToActivity(TimeReinderActivity.class);
+            jumpToActivity(TimeReminderActivity.class);
         });
         //自定义单位按钮
         viewBinding.llCompany.setOnClickListener(v->{
