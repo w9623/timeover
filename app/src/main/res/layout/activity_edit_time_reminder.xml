@@ -49,6 +49,7 @@
                 android:layout_height="wrap_content"/>
 
             <RelativeLayout
+                android:id="@+id/rl_not_reminder"
                 android:layout_marginTop="@dimen/dp_20"
                 android:background="@color/white"
                 android:paddingRight="@dimen/dp_20"
@@ -72,6 +73,16 @@
                     android:layout_centerVertical="true"
                     android:src="@mipmap/ic_hook" />
             </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/iv_del"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginBottom="@dimen/dp_20"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/ic_del"
+                android:layout_width="@dimen/dp_25"
+                android:layout_height="@dimen/dp_25"/>
         </LinearLayout>
     </ScrollView>
 

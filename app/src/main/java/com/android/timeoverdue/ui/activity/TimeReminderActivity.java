@@ -28,6 +28,7 @@ public class TimeReminderActivity extends BaseActivity<ActivityTimeReminderBindi
             Intent intent = new Intent(TimeReminderActivity.this,EditTimeReminderActivity.class);
             intent.putExtra("classifyName",list.get(position).getClassifyName());
             intent.putExtra("reminderTime",list.get(position).getReminderDays());
+            intent.putExtra("mObjectId",list.get(position).getObjectId());
             startActivity(intent);
         }
     };
@@ -94,4 +95,9 @@ public class TimeReminderActivity extends BaseActivity<ActivityTimeReminderBindi
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getTimeReminderList();
+    }
 }
