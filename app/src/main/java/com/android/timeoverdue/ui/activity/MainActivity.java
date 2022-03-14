@@ -17,8 +17,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     @Override
     protected void onClick() {
+        //设置按钮点击事件
         viewBinding.ivSet.setOnClickListener(v->{
             jumpToActivity(SettingActivity.class);
+        });
+        //添加物品按钮点击事件
+        viewBinding.ivAdd.setOnClickListener(v->{
+            jumpToActivity(AddGoodsActivity.class);
         });
     }
 }

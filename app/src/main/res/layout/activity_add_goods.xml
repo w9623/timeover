@@ -5,7 +5,9 @@
     android:background="@color/color_F5F5F5"
     android:orientation="vertical">
 
-    <include layout="@layout/activity_top_title"/>
+    <include
+        android:id="@+id/include_top"
+        layout="@layout/activity_top_title"/>
 
     <LinearLayout
         android:layout_marginTop="@dimen/dp_30"
@@ -79,8 +81,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <TextView
-                    android:text="选填"
+                    android:id="@+id/tv_number"
+                    android:text=""
+                    android:hint="选填"
                     android:textSize="@dimen/sp_15"
+                    android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <TextView
@@ -166,7 +171,9 @@
                 android:layout_height="match_parent">
                 <TextView
                     android:id="@+id/tv_classify"
-                    android:text="选填"
+                    android:text=""
+                    android:hint="选填"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/sp_15"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -328,6 +335,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_40">
             <ImageView
+                android:src="@mipmap/ic_clock"
                 android:layout_width="@dimen/dp_20"
                 android:layout_height="@dimen/dp_20"/>
 
