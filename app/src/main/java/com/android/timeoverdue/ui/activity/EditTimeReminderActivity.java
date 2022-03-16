@@ -26,7 +26,7 @@ public class EditTimeReminderActivity extends BaseActivity<ActivityEditTimeRemin
 
     private List<BmobReminderDays> list;
     private EditTimeReminderAdapter editTimeReminderAdapter;
-    private String classifyName,mObjectId;
+    private String classifyName,mObjectId,activity;
     private String reminderTime;
     private List<String> map = new ArrayList<String>();
     private EditTimeReminderAdapter.OnSetItemClickListener listener = new EditTimeReminderAdapter.OnSetItemClickListener() {
@@ -46,6 +46,7 @@ public class EditTimeReminderActivity extends BaseActivity<ActivityEditTimeRemin
         classifyName = getIntent().getStringExtra("classifyName");
         reminderTime = getIntent().getStringExtra("reminderTime");
         mObjectId = getIntent().getStringExtra("mObjectId");
+        activity = getIntent().getStringExtra("activity");
         if (reminderTime.equals("不提醒")){
             viewBinding.ivChoice.setVisibility(View.VISIBLE);
         }
@@ -67,6 +68,9 @@ public class EditTimeReminderActivity extends BaseActivity<ActivityEditTimeRemin
         if (!classifyName.equals("默认") && !reminderTime.equals("W2IJKKKU")){
             viewBinding.ivDel.setVisibility(View.VISIBLE);
         }else {
+            viewBinding.ivDel.setVisibility(View.GONE);
+        }
+        if (activity.equals("AddGoodsActivity")){
             viewBinding.ivDel.setVisibility(View.GONE);
         }
     }

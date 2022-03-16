@@ -48,4 +48,8 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:4.8.1'
     implementation 'com.squareup.okio:okio:2.2.2'
     implementation 'com.google.code.gson:gson:2.8.5'
+    //选择器
+    implementation 'com.github.duanhong169:picker-view:1.0.0'
+    implementation 'com.github.yijiebuyi:3DWheelPicker:v1.2.0'
+    implementation  'com.github.addappcn:android-pickers:2.0.0'
 }

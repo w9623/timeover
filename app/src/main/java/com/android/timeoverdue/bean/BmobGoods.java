@@ -24,12 +24,12 @@ public class BmobGoods extends BmobObject {
     /**
      * 生产日期
      */
-    private Date dateOfManufacture;
+    private String dateOfManufacture;
 
     /**
      * 过期时间
      */
-    private Date expirationTime;
+    private String expirationTime;
 
     /**
      * 保质天数
@@ -50,4 +50,76 @@ public class BmobGoods extends BmobObject {
      * 图片
      */
     private String photo;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public String getClassify() {
+        return classify;
+    }
+
+    public void setClassify(String classify) {
+        this.classify = classify;
+    }
+
+    public String getDateOfManufacture() {
+        return dateOfManufacture;
+    }
+
+    public void setDateOfManufacture(String dateOfManufacture) {
+        this.dateOfManufacture = dateOfManufacture;
+    }
+
+    public String getExpirationTime() {
+        return expirationTime;
+    }
+
+    public void setExpirationTime(String expirationTime) {
+        this.expirationTime = expirationTime;
+    }
+
+    public String getShelfLifeDays() {
+        return shelfLifeDays;
+    }
+
+    public void setShelfLifeDays(String shelfLifeDays) {
+        this.shelfLifeDays = shelfLifeDays;
+    }
+
+    public String getTimeReminder() {
+        return timeReminder;
+    }
+
+    public void setTimeReminder(String timeReminder) {
+        this.timeReminder = timeReminder;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
 }
