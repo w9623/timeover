@@ -2,6 +2,7 @@ package com.android.timeoverdue.ui.activity;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.Intent;
 import android.util.Log;
 
 import com.android.timeoverdue.base.BaseActivity;
@@ -22,7 +23,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     private GoodsAdapter.OnItemClickListener listener = new GoodsAdapter.OnItemClickListener() {
         @Override
         public void onClick(int position) {
-
+            Intent intent = new Intent(MainActivity.this,GoodsActivity.class);
+            intent.putExtra("mObjectId",data.get(position).getObjectId());
+            startActivity(intent);
         }
     };
 

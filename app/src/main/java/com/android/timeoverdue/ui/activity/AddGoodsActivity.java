@@ -26,6 +26,7 @@ import com.android.timeoverdue.bean.BmobTimeReminder;
 import com.android.timeoverdue.databinding.ActivityAddGoodsBinding;
 import com.android.timeoverdue.ui.adapter.ClassifyAdapter;
 import com.android.timeoverdue.ui.adapter.CompanyAdapter;
+import com.android.timeoverdue.ui.adapter.GoodsAdapter;
 import com.android.timeoverdue.ui.adapter.ScrollPickerAdapter;
 //import com.android.timeoverdue.ui.picker.PickValueView;
 import com.android.timeoverdue.ui.picker.ScrollPickerView;
@@ -49,12 +50,13 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.SaveListener;
 import top.defaults.view.PickerView;
 
 public class AddGoodsActivity extends BaseActivity<ActivityAddGoodsBinding> {
 
-    private String goodsName,remarks,number,company,numberAll,classify,mObjectId;
+    private String goodsName,remarks,number,company,numberAll,classify,mObjectId,activity;
     private List<String> companyList,classifyList;
     private ScrollPickerAdapter.ScrollPickerAdapterBuilder<String> builder1;
     private ScrollPickerAdapter mScrollPickerAdapter;
@@ -65,6 +67,11 @@ public class AddGoodsActivity extends BaseActivity<ActivityAddGoodsBinding> {
     protected void initData() {
         getCompany();
         getClassifyList();
+        mObjectId = getIntent().getStringExtra("mObjectId");
+        activity = getIntent().getStringExtra("activity");
+        if (!StringUtil.isEmpty(activity) && activity.equals("GoodsActivity")){
+            getGoodsInfo();
+        }
         //物品名称输入框
         viewBinding.etGoodsName.addTextChangedListener(new TextWatcher() {
             @Override
@@ -223,25 +230,28 @@ public class AddGoodsActivity extends BaseActivity<ActivityAddGoodsBinding> {
             if (!StringUtil.isEmpty(viewBinding.etRemarks.getText().toString())){
                 bmobGoods.setRemarks(viewBinding.etRemarks.getText().toString());
             }
-            if (StringUtil.isEmpty(viewBinding.tvDateOfManufacture.getText().toString())){
-                bmobGoods.setDateOfManufacture(String.valueOf(System.currentTimeMillis()));
-            }else {
+            if (!StringUtil.isEmpty(viewBinding.tvDateOfManufacture.getText().toString())){
+//                bmobGoods.setDateOfManufacture(new SimpleDateFormat("yyyy-MM-dd")
+//                        .format(new Date(System.currentTimeMillis())));
+//            }else {
                 bmobGoods.setDateOfManufacture(viewBinding.tvDateOfManufacture.getText().toString());
-
             }
-            if (viewBinding.tvDays.getText().equals("保质天数") && StringUtil.isEmpty(viewBinding.tvDisplayDays.getText().toString())){
-                showToast("保质天数不能为空！");
-                return;
+            if (viewBinding.tvDays.getText().toString().equals("保质天数")){
+                if (StringUtil.isEmpty(viewBinding.tvDisplayDays.getText().toString())){
+                    showToast("保质天数不能为空！");
+                    return;
+                }else {
+                    bmobGoods.setShelfLifeDays(viewBinding.tvDisplayDays.getText().toString());
+                }
             }else {
-                bmobGoods.setShelfLifeDays(viewBinding.tvDisplayDays.getText().toString());
+                if (StringUtil.isEmpty(viewBinding.tvDisplayDays.getText().toString())){
+                    showToast("过期日期不能为空！");
+                    return;
+                }else {
+                    bmobGoods.setExpirationTime(viewBinding.tvDisplayDays.getText().toString());
+                }
             }
             bmobGoods.setClassify(viewBinding.tvClassify.getText().toString());
-            if (viewBinding.tvDays.getText().equals("过期日期") && StringUtil.isEmpty(viewBinding.tvDisplayDays.getText().toString())){
-                showToast("过期日期不能为空！");
-                return;
-            }else {
-                bmobGoods.setExpirationTime(viewBinding.tvDisplayDays.getText().toString());
-            }
             bmobGoods.setTimeReminder(viewBinding.tvRemind.getText().toString());
             bmobGoods.save(new SaveListener<String>() {
                 @Override
@@ -444,6 +454,41 @@ public class AddGoodsActivity extends BaseActivity<ActivityAddGoodsBinding> {
         super.onResume();
         getCompany();
         getClassifyList();
+    }
+
+    private void getGoodsInfo(){
+        BmobQuery<BmobGoods> query = new BmobQuery<>();
+        query.getObject(mObjectId, new QueryListener<BmobGoods>() {
+            @Override
+            public void done(BmobGoods info, BmobException e) {
+                if (e == null){
+                    viewBinding.etGoodsName.setText(info.getName());
+                    if(!StringUtil.isEmpty(info.getNumber())){
+                        viewBinding.tvNumber.setText(info.getNumber());
+                    }
+                    viewBinding.tvClassify.setText(info.getClassify());
+                    if (viewBinding.tvDays.getText().equals("过期日期")){
+                        viewBinding.tvDisplayDays.setText(info.getExpirationTime());
+                    }else {
+                        if (!StringUtil.isEmpty(info.getShelfLifeDays())){
+                            viewBinding.tvDisplayDays.setText(info.getShelfLifeDays());
+                        }
+                    }
+                    if (!StringUtil.isEmpty(info.getDateOfManufacture())){
+                        viewBinding.tvDateOfManufacture.setText(info.getDateOfManufacture());
+                    }
+                    if (StringUtil.isEmpty(info.getRemarks())){
+                        viewBinding.etRemarks.setText("");
+                    }else {
+                        viewBinding.etRemarks.setText(info.getRemarks());
+                    }
+                    viewBinding.tvRemind.setText(info.getTimeReminder());
+
+                }else {
+                    Log.e(TAG,e.toString());
+                }
+            }
+        });
     }
 
 }

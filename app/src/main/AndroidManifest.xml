@@ -36,6 +36,7 @@
         <activity android:name=".ui.activity.TimeReminderActivity"/>
         <activity android:name=".ui.activity.EditTimeReminderActivity"/>
         <activity android:name=".ui.activity.AddGoodsActivity"/>
+        <activity android:name=".ui.activity.GoodsActivity"/>
 
         <provider
             android:name="cn.bmob.v3.util.BmobContentProvider"

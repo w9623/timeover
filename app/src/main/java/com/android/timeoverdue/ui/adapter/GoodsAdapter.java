@@ -60,7 +60,7 @@ public class GoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             goodsHolder.tvNumber.setText("数量："+mDatas.get(position).getNumber());
         }
         goodsHolder.progressBar.setProgress(0);
-        if (!StringUtil.isEmpty(mDatas.get(position).getExpirationTime().toString())){
+        if (!StringUtil.isEmpty(mDatas.get(position).getExpirationTime())){
             int day = dateDiff(mDatas.get(position).getExpirationTime());
             if (day > 0 || day > 0){
                 goodsHolder.tvExplain.setText("剩余");
@@ -71,6 +71,14 @@ public class GoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             }
             goodsHolder.tvDay.setText(day+"天");
         }
+        goodsHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null){
+                    listener.onClick(position);
+                }
+            }
+        });
 
     }
 
@@ -109,7 +117,7 @@ public class GoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
      * @param endTime
      * @return
      */
-    public int dateDiff(String endTime) {
+    public static int dateDiff(String endTime) {
         int strTime;
         // 按照传入的格式生成一个simpledateformate对象
         SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
