@@ -43,6 +43,10 @@ public class SettingActivity extends BaseActivity<ActivitySettingBinding> {
                 jumpToActivity(LoginOrRegisterActivity.class);
             }
         });
+        //归档物品
+        viewBinding.llGoods.setOnClickListener(v-> {
+            jumpToActivity(OverdueGoodsActivity.class);
+        });
         //自定义分类按钮
         viewBinding.llClassify.setOnClickListener(v->{
             jumpToActivity(ClassifyActivity.class);
@@ -76,6 +80,10 @@ public class SettingActivity extends BaseActivity<ActivitySettingBinding> {
         //常见问题
         viewBinding.llCommonProblem.setOnClickListener(v->{
             jumpToActivity(CommonProblemActivity.class);
+        });
+        //隐私协议
+        viewBinding.llPrivacyAgreement.setOnClickListener(v -> {
+
         });
     }
 

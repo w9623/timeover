@@ -56,7 +56,7 @@ public class FeedBackActivity extends BaseActivity<ActivityFeedbackBinding> {
         });
         //常见问题按钮点击事件
         viewBinding.btnCommonProblem.setOnClickListener(v->{
-
+            jumpToActivity(CommonProblemActivity.class);
         });
         //发送按钮点击事件
         viewBinding.includeTop.tvSave.setOnClickListener(v->{

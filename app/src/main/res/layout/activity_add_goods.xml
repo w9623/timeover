@@ -245,6 +245,7 @@
             android:layout_height="@dimen/dp_1"/>
 
         <LinearLayout
+            android:visibility="gone"
             android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_40">
@@ -416,14 +417,40 @@
                 android:layout_height="wrap_content"/>
         </LinearLayout>
 
-        <LinearLayout
+
+        <RelativeLayout
+            android:id="@+id/rl_photo"
             android:layout_marginTop="@dimen/dp_10"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_60">
+
             <ImageView
+                android:id="@+id/iv_photo"
                 android:layout_width="@dimen/dp_60"
                 android:layout_height="@dimen/dp_60"/>
-        </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_photo"
+                android:gravity="center"
+                android:background="@drawable/btn1"
+                android:layout_width="@dimen/dp_60"
+                android:layout_height="@dimen/dp_60">
+                <ImageView
+                    android:src="@mipmap/ic_add"
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20"/>
+            </LinearLayout>
+
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/ic_clear"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/ic_close"
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_20"/>
+
+        </RelativeLayout>
+
 
     </LinearLayout>
 

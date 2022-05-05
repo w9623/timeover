@@ -1,5 +1,6 @@
 package com.android.timeoverdue.base;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -20,6 +21,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 
+import me.leefeng.promptlibrary.PromptDialog;
+
 public abstract class BaseActivity<T extends ViewBinding> extends AppCompatActivity {
 
 
@@ -33,6 +36,7 @@ public abstract class BaseActivity<T extends ViewBinding> extends AppCompatActiv
     protected final String TAG = this.getClass().getSimpleName();
     //获取上下文
     public Context mContext;
+    private PromptDialog promptDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,6 +133,17 @@ public abstract class BaseActivity<T extends ViewBinding> extends AppCompatActiv
     protected void onDestroy() {
         super.onDestroy();
         ActivityUtil.getInstance().removeActivity(this);
+    }
+
+    //显示加载弹窗
+    public void showLoading(String str, Activity context) {
+        promptDialog = new PromptDialog(context);
+        promptDialog.showLoading(str);
+    }
+
+    //销毁加载弹窗
+    public void finishLoading() {
+        promptDialog.dismiss();
     }
 
 }

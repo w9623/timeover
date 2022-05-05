@@ -83,9 +83,11 @@ public class LoginOrRegisterActivity extends BaseActivity<ActivityLoginOrRegiste
         //登录、注册按钮
         viewBinding.btnLogin.setOnClickListener(v->{
             if (viewBinding.tvTitle.getText().equals("账号登录")){
+                showLoading("登录中...", this);
                 login();
             }else {
                 signUp();
+                showLoading("注册中...", this);
             }
         });
         //忘记密码按钮
@@ -139,6 +141,7 @@ public class LoginOrRegisterActivity extends BaseActivity<ActivityLoginOrRegiste
                 } else {
                     showToast("注册失败！");
                 }
+                finishLoading();
             }
         });
     }
@@ -163,6 +166,7 @@ public class LoginOrRegisterActivity extends BaseActivity<ActivityLoginOrRegiste
                 } else {
                     showToast("登录失败！");
                 }
+                finishLoading();
             }
         });
     }

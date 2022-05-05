@@ -37,7 +37,7 @@ public class GoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     public void setData(List<BmobGoods> list){
-        mDatas.clear();
+        this.mDatas.clear();
         this.mDatas = list;
         notifyDataSetChanged();
     }
@@ -59,17 +59,22 @@ public class GoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             goodsHolder.tvNumber.setVisibility(View.VISIBLE);
             goodsHolder.tvNumber.setText("数量："+mDatas.get(position).getNumber());
         }
-        goodsHolder.progressBar.setProgress(0);
+
         if (!StringUtil.isEmpty(mDatas.get(position).getExpirationTime())){
-            int day = dateDiff(mDatas.get(position).getExpirationTime());
-            if (day > 0 || day > 0){
+            int day = dateDiff("-1", mDatas.get(position).getExpirationTime());
+            int day1 = dateDiff(mDatas.get(position).getDateOfManufacture(), mDatas.get(position).getExpirationTime());
+            if (day > 0){
                 goodsHolder.tvExplain.setText("剩余");
                 goodsHolder.tvDay.setTextColor(mContext.getResources().getColor(R.color.color_DC143C));
+                goodsHolder.tvDay.setText(day+"天");
+                int progress = (int)((day1-day) / (double)day1 * 100);
+                goodsHolder.progressBar.setProgress(progress);
             }else {
                 goodsHolder.tvExplain.setText("已过期");
                 goodsHolder.tvDay.setTextColor(mContext.getResources().getColor(R.color.black));
+                goodsHolder.tvDay.setText(-day+"天");
+                goodsHolder.progressBar.setProgress(100);
             }
-            goodsHolder.tvDay.setText(day+"天");
         }
         goodsHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,7 +122,7 @@ public class GoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
      * @param endTime
      * @return
      */
-    public static int dateDiff(String endTime) {
+    public static int dateDiff(String startTime, String endTime) {
         int strTime;
         // 按照传入的格式生成一个simpledateformate对象
         SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
@@ -127,12 +132,15 @@ public class GoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         long ns = 1000;// 一秒钟的毫秒数
         long diff;
         long day = 0;
-        Date curDate = new Date(System.currentTimeMillis());//获取当前时间
-        String str = sd.format(curDate);
+        String str = "";
+        if (startTime.equals("-1")) {
+            Date curDate = new Date(System.currentTimeMillis());//获取当前时间
+            startTime = sd.format(curDate);
+        }
         try {
             // 获得两个时间的毫秒时间差异
             diff = sd.parse(endTime).getTime()
-                    - sd.parse(str).getTime();
+                    - sd.parse(startTime).getTime();
             day = diff / nd;// 计算差多少天
             long hour = diff % nd / nh;// 计算差多少小时
             long min = diff % nd % nh / nm;// 计算差多少分钟
@@ -141,7 +149,7 @@ public class GoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             if (day >= 1) {
                 strTime = (int) day;
             } else {
-                strTime = 0;
+                strTime = (int) day;
             }
 
             return strTime;

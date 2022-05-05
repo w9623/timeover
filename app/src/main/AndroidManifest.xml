@@ -8,6 +8,9 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- 获取sd卡写的权限，用于文件上传和下载 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 允许读取手机状态 用于创建BmobInstallation -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <!--获取手机录音机使用权限，听写、识别、语义理解需要用到此权限 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
     <application
         android:name=".app.MyApplication"
@@ -16,14 +19,25 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:requestLegacyExternalStorage="true"
         android:theme="@style/Theme.TimeOverdue">
-        <activity android:name=".ui.activity.LoginOrRegisterActivity">
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.android.timeoverdue.fileProvider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+        <activity android:name=".ui.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.activity.LoginOrRegisterActivity"/>
         <activity android:name=".ui.activity.SettingActivity"></activity>
         <activity android:name=".ui.activity.MainActivity" />
         <activity android:name=".ui.activity.BackupsActivity"/>
@@ -37,6 +51,8 @@
         <activity android:name=".ui.activity.EditTimeReminderActivity"/>
         <activity android:name=".ui.activity.AddGoodsActivity"/>
         <activity android:name=".ui.activity.GoodsActivity"/>
+        <activity android:name=".ui.activity.ClipImageActivity"/>
+        <activity android:name=".ui.activity.OverdueGoodsActivity"/>
 
         <provider
             android:name="cn.bmob.v3.util.BmobContentProvider"
