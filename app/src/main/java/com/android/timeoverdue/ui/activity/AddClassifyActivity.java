@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.android.timeoverdue.R;
 import com.android.timeoverdue.base.BaseActivity;
 import com.android.timeoverdue.bean.BmobClassify;
+import com.android.timeoverdue.bean.BmobTimeReminder;
 import com.android.timeoverdue.databinding.ActivityAddClassifyBinding;
 import com.android.timeoverdue.utils.StringUtil;
 
@@ -72,6 +73,7 @@ public class AddClassifyActivity extends BaseActivity<ActivityAddClassifyBinding
     protected void onClick() {
         //保存按钮点击事件
         viewBinding.includeTop.tvSave.setOnClickListener(v->{
+            showLoading("请稍后...", AddClassifyActivity.this);
             equal();
         });
         //返回按钮点击事件
@@ -99,7 +101,7 @@ public class AddClassifyActivity extends BaseActivity<ActivityAddClassifyBinding
     /**
      * 新增一个分类
      */
-    private void save() {
+    private void saveClassify() {
         BmobClassify bmobClassify = new BmobClassify();
         bmobClassify.setName(classifyName);
         bmobClassify.setSystem(false);
@@ -107,6 +109,23 @@ public class AddClassifyActivity extends BaseActivity<ActivityAddClassifyBinding
             @Override
             public void done(String s, BmobException e) {
                 if (e == null){
+                    saveTimeReminderDay(classifyName);
+                }else {
+                    Log.e(TAG,e.toString());
+                }
+            }
+        });
+    }
+
+    private void saveTimeReminderDay(String classifyName) {
+        BmobTimeReminder bmobTimeReminder = new BmobTimeReminder();
+        bmobTimeReminder.setClassifyName(classifyName);
+        bmobTimeReminder.setReminderDays("W2IJKKKU");
+        bmobTimeReminder.save(new SaveListener<String>() {
+            @Override
+            public void done(String s, BmobException e) {
+                finishLoading();
+                if (e == null) {
                     showToast("添加成功!");
                     finish();
                 }else {
@@ -114,6 +133,7 @@ public class AddClassifyActivity extends BaseActivity<ActivityAddClassifyBinding
                 }
             }
         });
+
     }
 
     /**
@@ -129,12 +149,13 @@ public class AddClassifyActivity extends BaseActivity<ActivityAddClassifyBinding
                     Log.e(TAG, String.valueOf(object.size()));
                     if (object.size() == 0){
                         if (str.equals("add")) {
-                            save();
+                            saveClassify();
                         }else {
                             update();
                         }
 
                     }else {
+                        finishLoading();
                         showToast("分类名称已存在！");
                     }
                 } else {
@@ -153,6 +174,7 @@ public class AddClassifyActivity extends BaseActivity<ActivityAddClassifyBinding
         bmobClassify.update(mObjectId, new UpdateListener() {
             @Override
             public void done(BmobException e) {
+                finishLoading();
                 if (e == null) {
                     showToast("修改成功!");
                     finish();

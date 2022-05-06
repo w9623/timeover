@@ -310,10 +310,10 @@ public class AddGoodsActivity extends BaseActivity<ActivityAddGoodsBinding> {
                     public void done(String s, BmobException e) {
                         finishLoading();
                         if (e == null){
-                            showToast("保存成功!");
+                            showToast("添加成功!");
                             finish();
                         }else {
-                            showToast("保存失败!");
+                            showToast("添加失败!");
                             Log.e(TAG,e.toString());
                         }
                     }
@@ -711,6 +711,7 @@ public class AddGoodsActivity extends BaseActivity<ActivityAddGoodsBinding> {
                         viewBinding.llPhoto.setVisibility(View.GONE);
                         Bitmap bitmap = CommonUtils.convertStringToIcon(info.getPhoto());
                         viewBinding.ivPhoto.setImageBitmap(bitmap);
+                        photoPath = info.getPhoto();
                     }
                 }else {
                     Log.e(TAG,e.toString());
