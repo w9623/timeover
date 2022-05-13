@@ -73,7 +73,7 @@ import top.defaults.view.PickerView;
 
 public class AddGoodsActivity extends BaseActivity<ActivityAddGoodsBinding> {
 
-    private String goodsName,remarks,number,company,numberAll,classify,mObjectId,activity,editStr,photoPath = "";
+    private String goodsName,remarks,number,company,numberAll,classify,mObjectId,activity,editStr,photoPath = "",mClassObjectId;
     private List<String> companyList,classifyList;
     private ScrollPickerAdapter.ScrollPickerAdapterBuilder<String> builder1;
     private ScrollPickerAdapter mScrollPickerAdapter;
@@ -240,7 +240,7 @@ public class AddGoodsActivity extends BaseActivity<ActivityAddGoodsBinding> {
         //过期提醒点击事件
         viewBinding.llRemind.setOnClickListener(v->{
             Intent intent = new Intent(AddGoodsActivity.this,EditTimeReminderActivity.class);
-            intent.putExtra("mObjectId",mObjectId);
+            intent.putExtra("mObjectId",mClassObjectId);
             intent.putExtra("classifyName",viewBinding.tvClassify.getText().toString());
             intent.putExtra("reminderTime",viewBinding.tvRemind.getText().toString());
             intent.putExtra("activity","AddGoodsActivity");
@@ -397,7 +397,7 @@ public class AddGoodsActivity extends BaseActivity<ActivityAddGoodsBinding> {
             intent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             Uri contentUri;
             if (Build.VERSION.SDK_INT >=24) {
-                contentUri = FileProvider.getUriForFile(mContext, "com.android.grotto.fileProvider", tempFile);
+                contentUri = FileProvider.getUriForFile(mContext, "com.android.timeoverdue.fileProvider", tempFile);
             }else {
                 contentUri = Uri.fromFile(tempFile);
             }
@@ -647,7 +647,7 @@ public class AddGoodsActivity extends BaseActivity<ActivityAddGoodsBinding> {
                     }else {
                         viewBinding.tvRemind.setText(list.get(0).getReminderDays());
                     }
-                    //mObjectId = list.get(0).getObjectId();
+                    mClassObjectId = list.get(0).getObjectId();
                 }else {
                     Log.e(TAG,e.toString());
                 }
