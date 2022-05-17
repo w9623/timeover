@@ -5,10 +5,12 @@ import android.util.Log;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.android.timeoverdue.app.Contents;
 import com.android.timeoverdue.base.BaseActivity;
 import com.android.timeoverdue.bean.BmobGoods;
 import com.android.timeoverdue.databinding.ActivityOverdueGoodsBinding;
 import com.android.timeoverdue.ui.adapter.GoodsAdapter;
+import com.android.timeoverdue.utils.ZSPTool;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,8 +55,10 @@ public class OverdueGoodsActivity extends BaseActivity<ActivityOverdueGoodsBindi
                 if (e == null) {
                     data = new ArrayList<>();
                     for (int i = 0; i < list.size(); i++) {
-                        if (GoodsAdapter.dateDiff("-1", list.get(i).getExpirationTime()) < 0) {
-                            data.add(list.get(i));
+                        if (list.get(i).getUserId().equals(ZSPTool.getString(Contents.USER_ID))) {
+                            if (GoodsAdapter.dateDiff("-1", list.get(i).getExpirationTime()) < 0) {
+                                data.add(list.get(i));
+                            }
                         }
                     }
                     if (goodsAdapter == null) {

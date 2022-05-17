@@ -7,9 +7,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.android.timeoverdue.R;
+import com.android.timeoverdue.app.Contents;
 import com.android.timeoverdue.base.BaseActivity;
 import com.android.timeoverdue.bean.UserBean;
 import com.android.timeoverdue.databinding.ActivityBackupsBinding;
+import com.android.timeoverdue.utils.ZSPTool;
 
 import cn.bmob.v3.BmobUser;
 
@@ -55,6 +57,7 @@ public class BackupsActivity extends BaseActivity<ActivityBackupsBinding> {
         });
         tvExit.setOnClickListener(v->{
             BmobUser.logOut();
+            ZSPTool.remove(Contents.USER_ID);
             finish();
         });
         builder.show();

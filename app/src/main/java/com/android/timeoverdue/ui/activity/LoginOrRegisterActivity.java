@@ -5,10 +5,12 @@ import android.text.TextWatcher;
 import android.view.View;
 
 import com.android.timeoverdue.R;
+import com.android.timeoverdue.app.Contents;
 import com.android.timeoverdue.base.BaseActivity;
 import com.android.timeoverdue.bean.UserBean;
 import com.android.timeoverdue.databinding.ActivityLoginOrRegisterBinding;
 import com.android.timeoverdue.utils.StringUtil;
+import com.android.timeoverdue.utils.ZSPTool;
 
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
@@ -162,6 +164,7 @@ public class LoginOrRegisterActivity extends BaseActivity<ActivityLoginOrRegiste
                     UserBean user = BmobUser.getCurrentUser(UserBean.class);
                     showToast("登录成功！");
                     jumpToActivity(MainActivity.class);
+                    ZSPTool.putString(Contents.USER_ID, bmobUser.getObjectId());
                     finish();
                 } else {
                     showToast("登录失败！");

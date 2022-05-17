@@ -1,5 +1,6 @@
 package com.android.timeoverdue.ui.activity;
 
+import static com.android.timeoverdue.utils.FileUtil.getRealFilePathFromUri;
 import static com.wheelpicker.PickOption.getPickDefaultOptionBuilder;
 
 import android.Manifest;
@@ -9,6 +10,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -45,6 +47,7 @@ import com.android.timeoverdue.ui.picker.ScrollPickerView;
 import com.android.timeoverdue.utils.CommonUtils;
 import com.android.timeoverdue.utils.FileManager;
 import com.android.timeoverdue.utils.StringUtil;
+import com.android.timeoverdue.utils.ZSPTool;
 import com.bumptech.glide.Glide;
 import com.wheelpicker.DataPicker;
 import com.wheelpicker.DateTimePicker;
@@ -54,6 +57,7 @@ import com.wheelpicker.PickMode;
 import com.wheelpicker.PickOption;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -254,6 +258,7 @@ public class AddGoodsActivity extends BaseActivity<ActivityAddGoodsBinding> {
         viewBinding.includeTop.tvSave.setOnClickListener(v->{
             showLoading("请稍等...", this);
             BmobGoods bmobGoods = new BmobGoods();
+            bmobGoods.setUserId(ZSPTool.getString(Contents.USER_ID));
             if (StringUtil.isEmpty(viewBinding.etGoodsName.getText().toString())){
                 showToast("名称不能为空！");
                 return;
@@ -457,21 +462,21 @@ public class AddGoodsActivity extends BaseActivity<ActivityAddGoodsBinding> {
                 break;
             case REQUEST_CROP_PHOTO:  //剪切图片返回
                 if (resultCode == RESULT_OK) {
-                    final Uri uri = intent.getData();
+                    Uri uri = intent.getData();
                     if (uri == null) {
                         return;
                     }
-                    Glide.with(this).load(uri).into(viewBinding.ivPhoto);
+//                    Glide.with(this).load(uri).into(viewBinding.ivPhoto);
                     photoPath = intent.getStringExtra("photo");
                     viewBinding.llPhoto.setVisibility(View.GONE);
 
-//                    String cropImagePath = getRealFilePathFromUri(getApplicationContext(), uri);
-//                    try {
-//                        bitMap = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
-//                        ivHead.setImageBitmap(bitMap);
-//                    }catch (FileNotFoundException e) {
-//                        e.printStackTrace();
-//                    }
+                    String cropImagePath = getRealFilePathFromUri(getBaseContext(), uri);
+                    try {
+                        Bitmap bitMap = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
+                        viewBinding.ivPhoto.setImageBitmap(bitMap);
+                    }catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
                 }
                 break;
         }

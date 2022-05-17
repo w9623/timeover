@@ -7,6 +7,11 @@ import cn.bmob.v3.BmobObject;
 public class BmobGoods extends BmobObject {
 
     /**
+     * 用户id
+     */
+    private String userId;
+
+    /**
      * 物品名称
      */
     private String name;
@@ -50,6 +55,9 @@ public class BmobGoods extends BmobObject {
      * 图片
      */
     private String photo;
+
+    public BmobGoods() {
+    }
 
     public String getName() {
         return name;
@@ -121,5 +129,13 @@ public class BmobGoods extends BmobObject {
 
     public void setPhoto(String photo) {
         this.photo = photo;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }
